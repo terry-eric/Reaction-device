@@ -1,0 +1,15 @@
+{
+    "background_color": "white",
+    "description": "WhiteCane",
+    "display": "fullscreen",
+    "icons": [
+        {
+            "src": "/White-Cane-Public/icon/fox-icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "name": "WhiteCane APP",
+    "short_name": "White Cane",
+    "start_url": "/White-Cane-Public/index.html"
+}

@@ -1,0 +1,91 @@
+table {
+    border: 1px solid;
+    /* color: lightgrey; */
+    /* width: 100%; */
+}
+
+.outline {
+    border-width: 2px;
+}
+
+.center {
+    text-align: center;
+}
+
+.d-grid.equal-width-btns {
+    /*adjust two buttons close len, because the outline has 4px, and between buttons have 8px*/
+    display: grid;
+    grid-template-columns: repeat(2, calc(50% - 4px));
+    /*減多少代表兩個按鈕之間的間距多少*/
+    /* 考慮邊界和填充等因素，這裡假設邊界為 8px */
+}
+
+table {
+    height: 100%;
+    font-size: 12px;
+}
+
+th {
+    vertical-align: middle;
+}
+
+.btn-group.special {
+    display: flex;
+}
+
+.special .btn {
+    flex: 1
+}
+
+
+.flex-mid {
+    display: flex;
+    justify-content: center;
+    /* 水平居中 */
+    align-items: center;
+    /* 垂直居中 */
+    height: 100vh;
+    /* 设置容器高度以便居中 */
+}
+
+/* 通过设置input的宽度来改变大小 */
+.custom-input {
+    /* width: 300px; */
+    /* 设置输入框宽度为300像素 */
+    height: 160px !important;
+    /* 设置输入框高度为40像素 */
+}
+
+#lock-screen {
+    opacity: 1;
+    transition: opacity 3s ease, height 1s ease;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* transition: 2s; */
+}
+
+#lock-screen.hidden {
+    opacity: 0;
+    height: 0;
+    /* let layer put last ,fix can not touch button problem*/
+    z-index: -1;
+}
+
+#lock-screen.hidden * {
+    display: none;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+}

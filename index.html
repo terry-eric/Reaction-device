@@ -2,78 +2,139 @@
 <html lang="zh" data-bs-theme="dark">
 
 <head>
-    <title>White Cane Connect APP</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,maximum-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <title>White Cane Connect APP</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no,maximum-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="./sytle.css">
-    <link rel="apple-touch-icon" href="/icon/fox-icon.png">
-    <style>
-        .btn-lg {
-            height: 20vh;
-            font-weight: bold;
-            font-size: 6vh;
-            line-height: 1.2em; /* 減少行高 */
-        }
+  <link rel="stylesheet" href="./sytle.css">
+  <link rel="apple-touch-icon" href="/icon/fox-icon.png">
+  <style>
+    .btn-lg {
+      height: 8vh;
+      font-weight: bold;
+      font-size: 5vh;
+      line-height: 1.2em;
+      /* 減少行高 */
+    }
 
-        .btn-lg-2 {
-            height: 30vh;
-            font-weight: bold;
-            font-size: 4vh;
-        }
+    .btn-lg-2 {
+      height: 30vh;
+      font-weight: bold;
+      font-size: 4vh;
+    }
 
-        .front-6 {
-            font-size: 6vh;
-            text-align: center;
-            font-weight: bold;
-        }
-    </style>
+    .front-6 {
+      font-size: 6vh;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .front-5 {
+      font-size: 5vh;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .front-4 {
+      font-size: 4vh;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .front-3_2 {
+      font-size: 3.2vh;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    th {
+      text-align: left;
+    }
+
+  </style>
 </head>
 
 <body>
-    <div id="lock-screen" class="hidden">
-        <div class="container flex-mid">
-            <div class="col-12">
-                <div class="d-grid gap-2">
-                    <div class="progress" style="height: 100px;">
-                        <div id="unlock-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                            role="progressbar" style="width: 0%; transition: none; font-size: 40px;">0%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid mt-3">
+    <div class="front-5">反應力測試😊</div>
+    <div class="d-grid gap-2">
+      <button id="myButton" class="btn btn-primary outline btn-lg mb-3">點擊開始</button>
     </div>
-    <div class="container-fluid mt-3">
-        <!-- <div class="front-6">導盲杖APP😊</div> -->
-        <div class="front-6">智能手杖APP😊</div>
-        <div class="d-grid gap-2">
-            <button id="myButton" class="btn btn-primary outline btn-lg mb-3">點擊開始</button>
+    <div style="border: 1px solid white;" class="mb-3">
+      <div class="front-5">
+        反映時間(ms)
+      </div>
+      <div class="container px-0 text-center">
+        <div class="row gx-0">
+          <div name="table1" class="col">
+            <table class="table">
+              <tbody class="front-3_2">
+                <tr>
+                  <th scope="row">1</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">4</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">5</th>
+                  <td name="field"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <table name="table2" class="table">
+              <tbody class="front-3_2">
+                <tr>
+                  <th scope="row">6</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">7</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">8</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">9</th>
+                  <td name="field"></td>
+                </tr>
+                <tr>
+                  <th scope="row">10</th>
+                  <td name="field"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="d-grid gap-2 equal-width-btns">
-            <button id="bleButton" class="btn btn-info outline btn-lg mb-3">
-                <div>切換</div>
-                <div id="voice-toggle">語音</div>
-            </button>
-            <button id="btn-lock" class="btn btn-warning outline btn-lg mb-3">
-                <div>螢幕</div>
-                <div>保護</div>
-            </button>
-        </div>
-        <div class="front-6">警示聲測試🎶</div>
-        <div class="btn-group-vertical mt-3 btn-lg-2 col-12" role="group" aria-label="Basic outlined example">
-            <button id="btn-height" type="button" class="btn btn-success front-6">注意高低差</button>
-            <button id="btn-GuideBrick" type="button" class="btn btn-info front-6">發現斑馬線</button>
-            <!-- <button id="btn-GuideBrick" type="button" class="btn btn-info front-6">發現導盲磚</button> -->
-        </div>
+      </div>
     </div>
-    <script type="module" src="bluetooth.js"></script>
-    <script type="module" src="index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+    <div class="front-5 mb-3">平均時間：<span id="average"></span></div>
+    <div class="alert alert-dark front-5 mb-3" role="alert" id="alertTF">
+      等待計算結果~~~
+    </div>
+    <div class="front-4 text-start">心率： <span id="heartRate">00</span> 血氧： <span id="bloodOxygen">00</span></div>
+  </div>
+  <script type="module" src="bluetooth.js"></script>
+  <script type="module" src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <Wire.h>
 #include "MAX30100_PulseOximeter.h"
 
-// #define REPORTING_PERIOD_MS 1000
+#define REPORTING_PERIOD_MS 1000
 
 // PulseOximeter is the higher level interface to the sensor
 // it offers:
@@ -28,54 +28,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  * SpO2 (oxidation level) calculation
 PulseOximeter pox;
 
-// uint32_t tsLastReport = 0;
+uint32_t tsLastReport = 0;
 
-// // Callback (registered below) fired when a pulse is detected
-// void onBeatDetected()
-// {
-//     Serial.println("Beat!");
-// }
+// Callback (registered below) fired when a pulse is detected
+void onBeatDetected() {
+  Serial.println("Beat!");
+}
 
-void setupMax3010x() {
+void setup() {
+  Serial.begin(115200);
   Wire.begin(8, 7);
+
+  Serial.print("Initializing pulse oximeter..");
+
   // Initialize the PulseOximeter instance
   // Failures are generally due to an improper I2C wiring, missing power supply
   // or wrong target chip
   if (!pox.begin()) {
-    Serial.println("[ERROR] Initializing PulseOximeter FAILED");
+    Serial.println("FAILED");
     for (;;)
       ;
+  } else {
+    Serial.println("SUCCESS");
   }
 
+  // The default current for the IR LED is 50mA and it could be changed
+  //   by uncommenting the following line. Check MAX30100_Registers.h for all the
+  //   available options.
+  // pox.setIRLedCurrent(MAX30100_LED_CURR_7_6MA);
+
   // Register a callback for the beat detection
-  // pox.setOnBeatDetectedCallback(onBeatDetected);
+  pox.setOnBeatDetectedCallback(onBeatDetected);
 }
 
-void getMax3010x(int* data) {
+void loop() {
   // Make sure to call update as fast as possible
   pox.update();
 
-  Serial.print("Heart rate:");
-  Serial.print(pox.getHeartRate());
-  Serial.print("bpm / SpO2:");
-  Serial.print(pox.getSpO2());
-  Serial.println("%");
-  // int heartrate = pox.getHeartRate();
-  // int spo2 = pox.getSpO2();
-  // data[0] = heartrate;
-  // data[1] = spo2;
+  // Asynchronously dump heart rate and oxidation levels to the serial
+  // For both, a value of 0 means "invalid"
+  if (millis() - tsLastReport > REPORTING_PERIOD_MS) {
+    Serial.print("Heart rate:");
+    Serial.print(pox.getHeartRate());
+    Serial.print("bpm / SpO2:");
+    Serial.print(pox.getSpO2());
+    Serial.println("%");
 
-  // // Asynchronously dump heart rate and oxidation levels to the serial
-  // // For both, a value of 0 means "invalid"
-  // if (millis() - tsLastReport > REPORTING_PERIOD_MS) {
-  //   Serial.print("Heart rate:");
-  //   Serial.print(pox.getHeartRate());
-  //   Serial.print("bpm / SpO2:");
-  //   Serial.print(pox.getSpO2());
-  //   Serial.println("%");
-
-  //   tsLastReport = millis();
-  // }
-  // data[0] = random(60, 100);
-  // data[1] = random(90, 100);
+    tsLastReport = millis();
+  }
 }

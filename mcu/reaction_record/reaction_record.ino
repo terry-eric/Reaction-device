@@ -5,7 +5,7 @@
 #define NUM_LEDS 1
 #define DATA_PIN 21
 
-#define NUM_REACTIONS 3  // 定義10次數據的數量
+#define NUM_REACTIONS 10  // 定義10次數據的數量
 #define REPORTING_PERIOD_MS 2000
 
 CRGB leds[NUM_LEDS];
@@ -26,13 +26,16 @@ extern BLECharacteristic *pMax3010xCh;
 
 void setup() {
   Serial.begin(115200);
+
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);  // GRB ordering is assumed
 
+  Serial.println("[INFO] Initializing BLE work!");
   setupBLE();
-  Serial.println("Starting BLE work!");
+  Serial.println("[INFO] BLE work!");
 
-  // setupMax3010x();
-  // Serial.print("Initializing pulse oximeter..");
+  Serial.println("[INFO] Initializing PulseOximeter.");
+  setupMax3010x();
+  Serial.println("[INFO] PulseOximeter success.");
 
   pinMode(buttonPin, INPUT);
   pinMode(ledPin, OUTPUT);
@@ -62,10 +65,17 @@ void loop() {
 
     int max3010xData[2];
     getMax3010x(max3010xData);
+    // Serial.print("Heart rate:");
+    // Serial.print(max3010xData[0]);
+    // Serial.print("bpm / SpO2:");
+    // Serial.print(max3010xData[1]);
+    // Serial.println("%");
+    // transmit data
     int data = (max3010xData[1] << 16) + max3010xData[0];
 
     pMax3010xCh->setValue((uint8_t *)&data, 4);
     pMax3010xCh->notify();
+    tsLastReport = millis();
   }
 
 

@@ -98,6 +98,7 @@ var alertTF = document.getElementById("alertTF");
 var heartRate = document.getElementById("heartRate");
 var bloodOxygen = document.getElementById("bloodOxygen");
 let totalReaction = [];
+let barColor = 'bg-danger';
 
 function callback(event) {
     const fields = document.getElementsByName("field");
@@ -115,12 +116,17 @@ function callback(event) {
                 alertTF.innerText = "正常";
                 alertTF.classList.remove("alert-dark");
                 alertTF.classList.add("alert-success");
+                barColor = 'bg-success';
+                addProgress();
             }
             if ((total / 10) >= 1000) {
                 alertTF.innerText = "異常";
                 alertTF.classList.remove("alert-dark");
                 alertTF.classList.add("alert-danger");
+                barColor = 'bg-danger';
+                addProgress();
             }
+            var addressContainer = document.getElementById('barList');
         }
     }
     if (event.currentTarget.uuid === Max30100Uuid) {
@@ -137,6 +143,58 @@ function callback(event) {
         count = 0;
     }
 }
+export function addProgress() {
+    // 获取 id 为 barList 的容器
+    const barList = document.getElementById('barList');
+    
+    if (!barList) {
+        console.error('Element with id "barList" not found.');
+        return;
+    }
+
+    // 获取当前已有的进度条
+    const progressBars = barList.querySelectorAll('.progress');
+    const count = progressBars.length + 1;
+
+    // 计算每个进度条的宽度百分比
+    const widthPercentage = 100 / count;
+
+    // 更新现有的进度条
+    progressBars.forEach((progressBar, index) => {
+        const newValue = (index + 1) * widthPercentage;
+        progressBar.style.width = `${widthPercentage}%`;
+        progressBar.setAttribute('aria-valuenow', newValue);
+    });
+
+    // 创建新的进度条元素
+    const progressDiv = document.createElement('div');
+    progressDiv.className = 'progress';
+    progressDiv.setAttribute('role', 'progressbar');
+    progressDiv.setAttribute('aria-label', `Segment ${count}`);
+    progressDiv.setAttribute('aria-valuenow', widthPercentage);
+    progressDiv.setAttribute('aria-valuemin', '0');
+    progressDiv.setAttribute('aria-valuemax', '100');
+    progressDiv.style.width = `${widthPercentage}%`;
+
+    const progressBarDiv = document.createElement('div');
+    progressBarDiv.className = 'progress-bar';
+
+    // // 你可以根据条件动态设置进度条颜色
+    // if (count % 2 === 0) {
+    //     progressBarDiv.classList.add('bg-success');
+    // } else if (count % 3 === 0) {
+    //     progressBarDiv.classList.add('bg-info');
+    // }
+    progressBarDiv.classList.add(barColor);
+
+    // 将内层的 progress-bar 添加到外层的 progress
+    progressDiv.appendChild(progressBarDiv);
+
+    // 将新的进度条添加到 barList 容器中
+    barList.appendChild(progressDiv);
+}
+
+
 
 export async function sendModeEvent(message, Uuid) {
     try {

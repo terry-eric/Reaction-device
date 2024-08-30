@@ -141,6 +141,7 @@ function callback(event) {
             console.log(i);
         }
         count = 0;
+        total = 0;
     }
 }
 export function addProgress() {
